@@ -37,7 +37,7 @@
 				<div v-for="item in myStays" v-bind:key="item.id" class="grid-item">
 					<NftStayCard
 						:sid="item.sID"
-						:name="item.metadata.name"
+						:name="item.name"
 						:address="item.metadata.address"
 						:stayFrom="item.metadata.stayFrom"
 						:stayTo="item.metadata.stayTo"
@@ -59,6 +59,8 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="sp-component"></div>
 
 		<Modal v-show="visible.burnModal" @close="closeModal">
 			<template v-slot:header>Burn NFT Stay </template>
@@ -174,8 +176,10 @@ export default {
 			transferStay: {
 				recipient: null,
 				ibc: '0',
-				ibcPort: 'nftstays',
-				ibcChannelID: 'channel-0',
+				// ibcPort: 'nftstays',
+				// ibcChannelID: 'channel-0',
+				ibcPort: '',
+				ibcChannelID: '',
 				ibcRecipient: null
 			},
 
@@ -241,14 +245,17 @@ export default {
 		showBurnModal(stay) {
 			this.visible.burnModal = true
 			this.selectedStay = stay
+			this.showMenuCardId = ''
 		},
 		showSellModal(stay) {
 			this.visible.sellModal = true
 			this.selectedStay = stay
+			this.showMenuCardId = ''
 		},
 		showTransferModal(stay) {
 			this.visible.transferModal = true
 			this.selectedStay = stay
+			this.showMenuCardId = ''
 		},
 		closeModal() {
 			this.visible.sellModal = false
@@ -279,8 +286,6 @@ export default {
 				'Content-Type': 'multipart/form-data',
 				Authorization: 'Bearer ' + token
 			}
-
-			console.log('data type', typeof data) // displays "string"
 			if (typeof data == 'string') {
 				headers = {
 					Authorization: 'Bearer ' + token
@@ -490,7 +495,7 @@ export default {
 			let nftStays = result.NftStay.filter((s) => s.owner == this.currentAccount)
 			let sellingStays = marketRs.Market.filter((s) => s.seller == this.currentAccount && s.status == 'SELLING')
 			for (let i = 0; i < nftStays.length; i++) {
-				let nftStay = nftStays[i]
+				const nftStay = nftStays[i]
 
 				// get metadata
 				let res = await axios.get(nftStay.tokenUri)
@@ -502,9 +507,10 @@ export default {
 					nftStay.marketId = mySellingStays[0].id
 				}
 
-				this.myStays.push(nftStay)
+				if (!this.myStays.includes(nftStay)) this.myStays.push(nftStay)
 			}
 
+			this.myStays = this.myStays.sort((a, b) => (a.metadata.stayFrom > b.metadata.stayFrom ? 1 : -1))
 			console.log('myStays', this.myStays)
 		}
 	}

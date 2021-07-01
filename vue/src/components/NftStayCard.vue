@@ -19,23 +19,40 @@ export default {
 
 			<slot name="dropdown-menu"></slot>
 		</div>
-		<div class="name">
+		<div v-if="name" class="name">
 			{{ name }}
 		</div>
-		<div><img v-bind:src="image" width="265" height="200" /></div>
+		<div v-if="image"><img v-bind:src="image" width="265" height="200" /></div>
 		<div class="address mb-2">{{ address }}</div>
-		<div>
-			Stay from <strong>{{ timestampToDateString(stayFrom) }}</strong> to <strong>{{ timestampToDateString(stayTo) }}</strong>
+		<div class="flex-center" v-if="stayFrom && stayTo"></div>
+		<div class="flex-center mt-2">
+			<div>
+				<div v-if="stayFrom" class="mb-2">
+					<span class="label-s">Stay from: </span>
+					<span class="text-s">{{ timestampToDateString(stayFrom) }}</span>
+				</div>
+				<div v-if="creator">
+					<span class="label-s">Creator: </span>
+					<a class="text-s" @click="alertAddress(creator)">{{ shortingWalletAddress(creator) }}</a>
+				</div>
+			</div>
+
+			<div>
+				<div v-if="stayTo" class="mb-2">
+					<span class="label-s">Stay to: </span>
+					<span class="text-s">{{ timestampToDateString(stayTo) }}</span>
+				</div>
+				<div v-if="owner">
+					<span class="label-s">Owner: </span>
+					<a class="text-s" @click="alertAddress(owner)">{{ shortingWalletAddress(owner) }}</a>
+				</div>
+				<div v-if="seller">
+					<span class="label-s">Seller: </span>
+					<a class="text-s" @click="alertAddress(seller)">{{ shortingWalletAddress(seller) }}</a>
+				</div>
+			</div>
 		</div>
-		<div v-if="creator">
-			<a @click="alertAddress(creator)">Creator: {{ shortingWalletAddress(creator) }}</a>
-		</div>
-		<div v-if="owner">
-			<a @click="alertAddress(owner)">Owner: {{ shortingWalletAddress(owner) }}</a>
-		</div>
-		<div v-if="seller">
-			<a @click="alertAddress(seller)">Seller: {{ shortingWalletAddress(seller) }}</a>
-		</div>
+
 		<div class="mt-3">
 			<slot name="footer"></slot>
 		</div>

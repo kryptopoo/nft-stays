@@ -15,8 +15,13 @@ app.component(VueCountdown.name, VueCountdown);
 app.mixin({
     methods: {
         timestampToDateString : function(timestamp) {
-			let theDate = new Date(timestamp * 1000)
-			return theDate.toLocaleDateString()
+			let date = new Date(timestamp * 1000)
+            let d = date.getDate();
+            let m = date.getMonth() + 1; //Month from 0 to 11
+            let y = date.getFullYear();
+            return '' + (m<=9 ? '0' + m : m) + '/' +  (d <= 9 ? '0' + d : d)  + '/' + y; // mm/dd/yyyy
+            // return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d); // yyyy-mm-dd
+			// return date.toLocaleDateString()
 		},
         shortingWalletAddress : function(addr){
             return addr.substring(0, 10) + '...' + addr.substring(addr.length-5, addr.length) ;

@@ -1,4 +1,13 @@
 //Your custom styles here
+input[type='date']:before {
+  content: attr(placeholder) !important;
+  color: #aaa;
+  margin-right: 0.5em;
+}
+input[type='date']:focus:before,
+input[type='date']:valid:before {
+  content: '';
+}
 .modal {
   [type='checkbox'],
   [type='radio'] {
@@ -23,13 +32,13 @@
   }
 }
 
-.sp-mb2 {
-  margin-bottom: 2rem;
-}
+// .sp-mb2 {
+//   margin-bottom: 2rem;
+// }
 
-.sp-ml2 {
-  margin-left: 2rem;
-}
+// .sp-ml2 {
+//   margin-left: 2rem;
+// }
 
 .column {
   float: left;
@@ -47,24 +56,6 @@ label {
   margin-bottom: 0rem;
 }
 
-.sp-pr2 {
-  padding-right: 10px;
-}
-
-.sp-pl2 {
-  padding-left: 10px;
-}
-
-input[type='date']:before {
-  content: attr(placeholder) !important;
-  color: #aaa;
-  margin-right: 0.5em;
-}
-input[type='date']:focus:before,
-input[type='date']:valid:before {
-  content: '';
-}
-
 .card-list {
   display: grid;
   grid-gap: 1em;
@@ -76,7 +67,6 @@ input[type='date']:valid:before {
 
 ul {
   list-style-type: none;
-
   padding-inline-start: 0px;
 }
 
@@ -86,12 +76,22 @@ ul {
   grid-gap: 2em;
 }
 
+.market.grid-container-4 {
+  grid-template: 500px / auto auto auto auto;
+  .grid-item {
+    height: 540px;
+    cursor: pointer;
+  }
+}
+
 .grid-container-4 {
   display: grid;
-  grid-template-columns: 24% 24% 24% 24%;
+  grid-template: 450px / auto auto auto auto;
   grid-gap: 2em;
   .grid-item {
-    min-width: 300px;
+    width: 305px;
+    height: 445px;
+    word-break: break-word;
   }
 }
 .grid-item {
@@ -117,8 +117,14 @@ ul {
 .mr-4 {
   margin-right: 2em;
 }
+.mb-1 {
+  margin-bottom: 0.25em;
+}
 .mb-2 {
   margin-bottom: 0.5em;
+}
+.mb-3 {
+  margin-bottom: 1em;
 }
 .mb-4 {
   margin-bottom: 2em;
@@ -143,7 +149,7 @@ ul {
   justify-content: space-between;
   align-items: center;
 }
-.modal{
+.modal {
   .sp-box {
     padding: 0rem;
   }
@@ -193,13 +199,18 @@ ul {
 .label-s {
   color: #7f7f7f;
   display: block;
-  margin-bottom: 0.3rem;
+  // margin-bottom: 0.3rem;
 }
 .label {
   font-size: 1.6rem;
 }
 .label-s {
   font-size: 1.2rem;
+  line-height: 1rem;
+}
+.text-s {
+  font-size: 1.3rem;
+  line-height: 1rem;
 }
 .badge-primary {
   color: #fff;

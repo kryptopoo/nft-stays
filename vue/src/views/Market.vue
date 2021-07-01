@@ -9,7 +9,7 @@
 				<span>My balance: {{ balance }} TOKEN</span>
 			</div>
 
-			<div class="grid-container-4">
+			<div class="market grid-container-4">
 				<div v-for="item in sellingStays" v-bind:key="item.id" class="grid-item" @click="selectMarket(item)">
 					<NftStayCard
 						:sid="item.sID"
@@ -18,7 +18,9 @@
 						:stayFrom="item.metadata.stayFrom"
 						:stayTo="item.metadata.stayTo"
 						:image="item.metadata.image"
+						:creator="item.creator"
 						:seller="item.seller"
+						v-if="item.metadata"
 					>
 						<template v-slot:footer>
 							<div class="flex-center mt-3" v-if="!item.onAuction">
@@ -52,74 +54,25 @@
 						</template>
 					</NftStayCard>
 				</div>
-
-				<!-- <div v-for="item in sellingStays" v-bind:key="item.id" class="sp-box grid-item" @click="selectMarket(item)">
-					<div class="flex-center">
-						<div class="sid">
-							{{ item.sID }}
-						</div>
-						<div class="badge badge-danger" v-if="item.status == 'SOLD'">{{ item.status }}</div>
-					</div>
-
-					<div class="name">
-						{{ item.metadata.name }}
-					</div>
-					<div><img v-bind:src="item.metadata.image" width="265" /></div>
-					<div class="address mb-2">{{ item.metadata.address }}</div>
-					<div>
-						Stay from <strong>{{ timestampToDateString(item.metadata.stayFrom) }}</strong> to <strong>{{ timestampToDateString(item.metadata.stayTo) }}</strong>
-					</div>
-					<div>Seller: {{ item.seller }}</div>
-
-
-					<div class="flex-center mt-3" v-if="!item.onAuction">
-						<div class="price">
-							<div class="label">Price</div>
-							<div>{{ item.price }} TOKEN</div>
-						</div>
-						<sp-button @click="buy(item)" :disabled="!canBuy(item)" :busy="processing.buy && processing.target == item.id">Buy</sp-button>
-					</div>
-					<div class="flex-center mt-3" v-if="item.onAuction && getRemainingTime(item.expired) > 0">
-						<div class="price">
-							<div class="label">Current bid</div>
-							<div>{{ item.price }} TOKEN</div>
-						</div>
-						<div class="expired">
-							<div class="label">Expiring in</div>
-							<div>
-								<vue-countdown :time="getRemainingTime(item.expired)" v-slot="{ days, hours, minutes, seconds }">
-									{{ days * 24 + hours }}h {{ String(minutes).padStart(2, '0') }}m {{ String(seconds).padStart(2, '0') }}s
-								</vue-countdown>
-							</div>
-						</div>
-					</div>
-					<div class="flex-center mt-3" v-if="item.onAuction && getRemainingTime(item.expired) <= 0">
-						<div class="price">
-							<div class="label">Highest bid</div>
-							<div>{{ item.price }} TOKEN</div>
-						</div>
-						<sp-button @click="claim(item)" :disabled="!canClaim(item)" :busy="processing.claim && processing.target == item.id">Claim</sp-button>
-					</div>
-				</div> -->
 			</div>
 		</div>
 
 		<Modal v-show="isAuctionModalVisible" @close="closeModal">
 			<template v-slot:header>Auction </template>
 			<template v-slot:body>
-				<div class="sp-box" style="width: 550px">
+				<div class="sp-box" style="width: 550px" v-if="selectedMarket">
 					<div>
 						<div class="flex-center" style="align-items: normal">
 							<div class="pr-2">
-								<div class="mb-2"><span class="label-s">Name: </span>{{ selectedMarket.metadata.name }}</div>
-								<div class="mb-2"><span class="label-s">Description: </span>{{ selectedMarket.metadata.description }}</div>
-								<div class="mb-2"><span class="label-s">Address: </span>{{ selectedMarket.metadata.address }}</div>
-								<div class="mb-3">
-									<span class="label-s">Stay: </span>
+								<div class="mb-3"><span class="label-s mb-2">Name: </span>{{ selectedMarket.metadata.name }}</div>
+								<!-- <div class="mb-2"><span class="label-s mb-1">Description: </span>{{ selectedMarket.metadata.description }}</div> -->
+								<div class="mb-3"><span class="label-s mb-2">Address: </span>{{ selectedMarket.metadata.address }}</div>
+								<div class="mb-4">
+									<span class="label-s mb-2">Stay: </span>
 									{{ timestampToDateString(selectedMarket.metadata.stayFrom) }} -
 									{{ timestampToDateString(selectedMarket.metadata.stayTo) }}
 								</div>
-								<div class="flex-center mt-3">
+								<div class="flex-center">
 									<div class="price">
 										<div class="label">Current bid</div>
 										<div>{{ selectedMarket.price }} TOKEN</div>
@@ -154,16 +107,14 @@
 						</div>
 					</div>
 					<div class="mt-4" v-if="canPlaceBid(selectedMarket)">
-						<div class="mb-2">
-							Placing a bid:
-						</div>
+						<div class="mb-2">Placing a bid:</div>
 						<input type="number" class="sp-input" placeholder="price (TOKEN)" v-model="bidPrice" />
 					</div>
 				</div>
 			</template>
 			<template v-slot:footer v-if="canPlaceBid(selectedMarket)">
 				<div class="btn-cancel" @click="closeModal()">Cancel</div>
-				<sp-button class="sp-button sp-button-primary"  @click="placeBid()" :busy="processing.bid">Place a bid</sp-button>
+				<sp-button class="sp-button sp-button-primary" @click="placeBid()" :busy="processing.bid">Place a bid</sp-button>
 			</template>
 		</Modal>
 	</div>
@@ -289,7 +240,7 @@ export default {
 		canPlaceBid(item) {
 			if (!item) return false
 			let isExpired = this.getRemainingTime(item.expired) < 0
-			return item.onAuction && item.status == 'SELLING' && !isExpired && (this.currentAccount != null && item.seller != this.currentAccount)
+			return item.onAuction && item.status == 'SELLING' && !isExpired && this.currentAccount != null && item.seller != this.currentAccount
 		},
 		canClaim(item) {
 			if (!item.offers || item.status == 'SOLD') return false
@@ -319,12 +270,12 @@ export default {
 			}
 		},
 		async loadAllMarkets() {
+			this.sellingStays = []
 			let result = await this.$store.dispatch('kryptopoo.marketplace.nftstays/QueryMarketAll', {
 				options: { subscribe: true },
 				params: {}
 			})
 			this.sellingStays = result.Market
-			console.log('market', result.Market)
 
 			for (let i = 0; i < this.sellingStays.length; i++) {
 				// check auction price
@@ -355,6 +306,9 @@ export default {
 					this.sellingStays[i].metadata.image = stayInfoRs.NftStay.image
 				}
 			}
+
+			this.sellingStays = this.sellingStays.sort((a, b) => (a.onAuction * 1 < b.onAuction * 1 ? 1 : -1))
+			console.log('this.sellingStays', this.sellingStays)
 		},
 		async loadBalance() {
 			this.balance = 0

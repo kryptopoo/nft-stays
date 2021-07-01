@@ -11,13 +11,13 @@ The world's first NFT Homestay rental marketplace where users can
 The application also leverages the power of Cosmos IBC to be able to transfer ownership of NFT homestays on cross-chains
 
 ## Getting Started
-1. Start blockchain 'earth' 
-`starport serve -c earth.yml -r`
-`vue/sudo npm run serve -- --port 8080 --mode=earth-r` (start vue)
-2. Start blockchain 'mars'
-`starport serve -c mars.yml -r`
-`sudo npm run serve -- --port 8080 --mode=mars-r` (start vue)
-3. Configure relayer
+1. Start blockchain 'earth' \
+`starport serve -c earth.yml -r`\
+`vue/sudo npm run serve -- --port 8080 --mode=earth-r`
+2. Start blockchain 'mars'\
+`starport serve -c mars.yml -r`\
+`sudo npm run serve -- --port 8080 --mode=mars-r`
+3. Configure relayer\
 `starport relayer configure -a \
 --source-rpc "http://0.0.0.0:26657" \
 --source-faucet "http://0.0.0.0:4500" \
@@ -31,5 +31,5 @@ The application also leverages the power of Cosmos IBC to be able to transfer ow
 --target-version "nftstays-1" \
 --target-gasprice "0.0000025stake" \
 --target-prefix "cosmos"`
-4. Connect relayer
+4. Connect relayer\
 `starport relayer connect`
