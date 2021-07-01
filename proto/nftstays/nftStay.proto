@@ -1,0 +1,17 @@
+syntax = "proto3";
+package kryptopoo.marketplace.nftstays;
+
+option go_package = "github.com/kryptopoo/marketplace/x/nftstays/types";
+
+import "gogoproto/gogo.proto";
+
+message NftStay {
+  string creator = 1;
+  uint64 id = 2;
+  string sID = 3; 
+  string owner = 4; 
+  string name = 5; 
+  string description = 6; 
+  string image = 7; 
+  string tokenUri = 8; 
+}

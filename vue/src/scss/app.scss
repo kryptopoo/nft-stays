@@ -1,0 +1,285 @@
+//Your custom styles here
+.modal {
+  [type='checkbox'],
+  [type='radio'] {
+    margin: 0px 5px 10px 0px;
+  }
+  [type='checkbox'],
+  [type='radio']:hover {
+    cursor: pointer;
+  }
+}
+.sp-type-list__item__details__field {
+  word-break: break-all;
+}
+.sp-icon-Market {
+  &:before {
+    content: '\267A';
+  }
+}
+.sp-icon-Stay {
+  &:before {
+    content: '\2602';
+  }
+}
+
+.sp-mb2 {
+  margin-bottom: 2rem;
+}
+
+.sp-ml2 {
+  margin-left: 2rem;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+.row:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 0rem;
+}
+
+.sp-pr2 {
+  padding-right: 10px;
+}
+
+.sp-pl2 {
+  padding-left: 10px;
+}
+
+input[type='date']:before {
+  content: attr(placeholder) !important;
+  color: #aaa;
+  margin-right: 0.5em;
+}
+input[type='date']:focus:before,
+input[type='date']:valid:before {
+  content: '';
+}
+
+.card-list {
+  display: grid;
+  grid-gap: 1em;
+}
+
+.card-item {
+  padding: 1em;
+}
+
+ul {
+  list-style-type: none;
+
+  padding-inline-start: 0px;
+}
+
+.grid-container-3 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 2em;
+}
+
+.grid-container-4 {
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  grid-gap: 2em;
+  .grid-item {
+    min-width: 300px;
+  }
+}
+.grid-item {
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.ml-2 {
+  margin-left: 0.5em;
+}
+.ml-3 {
+  margin-left: 1em;
+}
+.ml-4 {
+  margin-left: 2em;
+}
+.mr-2 {
+  margin-right: 0.4em;
+}
+.mr-3 {
+  margin-right: 1em;
+}
+.mr-4 {
+  margin-right: 2em;
+}
+.mb-2 {
+  margin-bottom: 0.5em;
+}
+.mb-4 {
+  margin-bottom: 2em;
+}
+.mt-2 {
+  margin-top: 0.5em;
+}
+.mt-3 {
+  margin-top: 1em;
+}
+.mt-4 {
+  margin-top: 2em;
+}
+.pr-2 {
+  margin-right: 0.5em;
+}
+.pl-2 {
+  margin-right: 0.5em;
+}
+.flex-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal{
+  .sp-box {
+    padding: 0rem;
+  }
+}
+.sp-box {
+  strong {
+    font-weight: 600;
+  }
+  .sid {
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+  .name {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 5px 0 5px 0;
+  }
+  .price {
+    align-items: flex-start;
+    flex-direction: column;
+    display: flex;
+    font-weight: 600;
+    font-size: 1.6rem;
+  }
+
+  .expired {
+    align-items: flex-start;
+    flex-direction: column;
+    display: flex;
+    font-weight: 600;
+    font-size: 1.6rem;
+    min-width: 125px;
+  }
+  .address {
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+}
+.sp-box-gray {
+  background: #f5f6f8;
+  border-radius: 1.2rem;
+  padding: 2rem;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+.label,
+.label-s {
+  color: #7f7f7f;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.label {
+  font-size: 1.6rem;
+}
+.label-s {
+  font-size: 1.2rem;
+}
+.badge-primary {
+  color: #fff;
+  background-color: #007bff;
+}
+.badge-secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+.badge-danger {
+  color: #fff;
+  background-color: #dc3545;
+}
+.badge-success {
+  color: #fff;
+  background-color: #28a745;
+}
+.badge-warning {
+  color: #212529;
+  background-color: #ffc107;
+}
+.badge-light {
+  color: #212529;
+  background-color: #f8f9fa;
+}
+.badge-dark {
+  color: #fff;
+  background-color: #343a40;
+}
+.badge {
+  padding: 0.3em 0.4em;
+  line-height: 1;
+  border-radius: 0.25rem;
+}
+
+.sp-button-sm {
+  height: 3rem !important;
+  padding: 0 1.5rem !important;
+  border-radius: 0.4rem !important;
+}
+
+.sp-button-danger {
+  background-color: #dc3545 !important;
+  border: 0.2rem solid #dc3545 !important;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}

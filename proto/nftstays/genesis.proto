@@ -1,0 +1,18 @@
+syntax = "proto3";
+package kryptopoo.marketplace.nftstays;
+
+// this line is used by starport scaffolding # genesis/proto/import
+import "nftstays/market.proto";
+import "nftstays/nftStay.proto";
+
+option go_package = "github.com/kryptopoo/marketplace/x/nftstays/types";
+
+// GenesisState defines the nftstays module's genesis state.
+message GenesisState {
+    // this line is used by starport scaffolding # genesis/proto/state
+		repeated Market marketList = 4; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 marketCount = 5; // this line is used by starport scaffolding # genesis/proto/stateField
+		repeated NftStay nftStayList = 2; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 nftStayCount = 3; // this line is used by starport scaffolding # genesis/proto/stateField
+    string port_id = 1; // this line is used by starport scaffolding # genesis/proto/stateField
+}

@@ -1,0 +1,71 @@
+syntax = "proto3";
+package kryptopoo.marketplace.nftstays;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+// this line is used by starport scaffolding # 1
+import "nftstays/market.proto";
+import "nftstays/nftStay.proto";
+
+option go_package = "github.com/kryptopoo/marketplace/x/nftstays/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    // this line is used by starport scaffolding # 2
+
+	// Queries a market by id.
+	rpc Market(QueryGetMarketRequest) returns (QueryGetMarketResponse) {
+		option (google.api.http).get = "/kryptopoo/marketplace/nftstays/market/{id}";
+	}
+
+	// Queries a list of market items.
+	rpc MarketAll(QueryAllMarketRequest) returns (QueryAllMarketResponse) {
+		option (google.api.http).get = "/kryptopoo/marketplace/nftstays/market";
+	}
+
+
+	// Queries a nftStay by id.
+	rpc NftStay(QueryGetNftStayRequest) returns (QueryGetNftStayResponse) {
+		option (google.api.http).get = "/kryptopoo/marketplace/nftstays/nftStay/{id}";
+	}
+
+	// Queries a list of nftStay items.
+	rpc NftStayAll(QueryAllNftStayRequest) returns (QueryAllNftStayResponse) {
+		option (google.api.http).get = "/kryptopoo/marketplace/nftstays/nftStay";
+	}
+
+}
+
+// this line is used by starport scaffolding # 3
+message QueryGetMarketRequest {
+	uint64 id = 1;
+}
+
+message QueryGetMarketResponse {
+	Market Market = 1;
+}
+
+message QueryAllMarketRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllMarketResponse {
+	repeated Market Market = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetNftStayRequest {
+	uint64 id = 1;
+}
+
+message QueryGetNftStayResponse {
+	NftStay NftStay = 1;
+}
+
+message QueryAllNftStayRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllNftStayResponse {
+	repeated NftStay NftStay = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
