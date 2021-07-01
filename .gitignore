@@ -14,6 +14,11 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
+go.mod
+go.sum
+*.pb.go
+*.pb.gw.go
 vue/node_modules
 vue/dist
 secret.yml
+package-lock.json
